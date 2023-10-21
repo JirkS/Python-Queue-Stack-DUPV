@@ -77,6 +77,7 @@ class My_Queue:
         """
         self.head = None
         self.tail = None
+        self.size = 0
 
     def set_head(self, h):
         """
@@ -117,7 +118,7 @@ class My_Queue:
 
     def count(self):
         """
-        Counting number of nodes in queue
+        Counting number of nodes in queue (For this method it can only return variable "size")
         :return: number of nodes
         """
         num_of_nodes = 0
@@ -127,38 +128,41 @@ class My_Queue:
             while tmp_node.next is not None:
                 tmp_node = tmp_node.next
                 num_of_nodes += 1
-        return num_of_nodes
+        return "In queue is " + str(num_of_nodes) + " elements (nodes)"
 
     def add(self, num):
         """
         Adds new node with value of num into queue
         :param num: value of new node
         """
-        if self.count() == 0:
+        if self.size == 0:
             self.head = Node(num, None, None)
             self.tail = Node(num, None, None)
-        elif self.count() == 1:
+        elif self.size == 1:
             self.tail = Node(num, self.head, None)
             self.head.next = self.tail
-        elif self.count() >= 2:
+        elif self.size >= 2:
             self.tail.next = Node(num, self.tail, None)
             self.tail = self.tail.next
+        self.size += 1
 
     def pop(self):
         """
         Deletes node from head
         :return: deleted node
         """
-        if self.count() == 0:
+        if self.size == 0:
             return "Queue is empty, nothing to delete"
-        elif self.count() == 1:
+        elif self.size == 1:
             tmp = self.head
             self.head = None
             self.tail = None
+            self.size -= 1
             return str(tmp.value) + " was deleted"
-        elif self.count() >= 2:
+        elif self.size >= 2:
             tmp = self.head
             self.head = self.head.next
+            self.size -= 1
             return str(tmp.value) + " was deleted"
 
     def clear(self):
@@ -167,6 +171,7 @@ class My_Queue:
         """
         self.head = None
         self.tail = None
+        self.size = 0
 
     def popAll(self):
         """
@@ -188,7 +193,7 @@ class My_Queue:
         :return: all values of all nodes in queue (current state of queue)
         """
         text = ""
-        if self.count() != 0:
+        if self.size != 0:
             element = self.head
             while element.next is not None:
                 text += str(element.value) + ", "
@@ -208,6 +213,7 @@ try:
     q.add(38)
     q.add(39)
     q.add(95)
+    print(q.count())
     print(q.printf())
     print(q.pop())
     print(q.pop())
@@ -228,7 +234,9 @@ try:
     q.add(44)
     q.add(671)
     print(q.printf())
+    print(q.count())
     print(q.popAll())
+    print(q.count())
     print(q.printf())
 except Exception as e:
     print(e)

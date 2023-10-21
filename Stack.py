@@ -56,6 +56,7 @@ class Stack:
         constructor - declare variables
         """
         self.top = None
+        self.size = 0
 
     def set_top(self, t):
         """
@@ -78,7 +79,7 @@ class Stack:
 
     def count(self):
         """
-        Counting number of nodes in stack
+        Counting number of nodes in stack (For this method it can only return variable "size")
         :return: number of nodes
         """
         num_of_nodes = 0
@@ -88,29 +89,31 @@ class Stack:
             while tmp_node.next is not None:
                 tmp_node = tmp_node.next
                 num_of_nodes += 1
-        return num_of_nodes
+        return "In stack is " + str(num_of_nodes) + " elements (nodes)"
 
     def add(self, num):
         """
         Adds new node with value of num into stack (on top)
         :param num: value of new node
         """
-        if self.count() == 0:
+        if self.size == 0:
             self.top = Node(num, None)
         else:
             n = Node(num, self.top)
             self.top = n
+        self.size += 1
 
     def pop(self):
         """
         Deletes node from top
         :return: deleted node
         """
-        if self.count() == 0:
+        if self.size == 0:
             return "Stack is empty, nothing to delete"
         else:
             n = self.top
             self.top = self.top.next
+            self.size -= 1
             return str(n.value) + " was deleted"
 
     def clear(self):
@@ -118,6 +121,7 @@ class Stack:
         Deletes all nodes from whole stack (clears it - is empty)
         """
         self.top = None
+        self.size = 0
 
     def popAll(self):
         """
@@ -139,7 +143,7 @@ class Stack:
         :return: all values of all nodes in stack (current state of stack)
         """
         text = ""
-        if self.count() != 0:
+        if self.size != 0:
             element = self.top
             while element.next is not None:
                 text += str(element.value) + ", "
@@ -157,6 +161,7 @@ try:
     s.add(5)
     s.add(7)
     s.add(-6)
+    print(s.count())
     print(s.printf())
     print(s.pop())
     print(s.printf())
@@ -172,6 +177,7 @@ try:
     s.add(62)
     s.add(93)
     print(s.printf())
+    print(s.count())
     s.clear()
     print(s.printf())
     print(s.pop())
@@ -182,6 +188,7 @@ try:
     s.add(671)
     print(s.printf())
     print(s.popAll())
+    print(s.count())
     print(s.printf())
 except Exception as e:
     print(e)
