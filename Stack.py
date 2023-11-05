@@ -153,6 +153,33 @@ class Stack:
             text += "Stack is empty."
         return text
 
+    def __len__(self):
+        return self.size
+
+    def __getitem__(self, key):
+        if self.size != 0 and key < self.size:
+            element = self.top
+            for i in range(key+1):
+                if i == key:
+                    return element.value
+                else:
+                    element = element.next
+        else:
+            return "Stack is empty or key is too big!"
+        return "error"
+
+    def __setitem__(self, key, value):
+        if self.size != 0 and key < self.size:
+            element = self.top
+            for i in range(key+1):
+                if i == key:
+                    element.value = value
+                else:
+                    element = element.next
+        else:
+            return "Stack is empty or key is too big!"
+        return "error"
+
 
 try:
     s = Stack()
@@ -186,7 +213,11 @@ try:
     s.add(63)
     s.add(44)
     s.add(671)
+    print(len(s))
     print(s.printf())
+    print(s[4])
+    s[10] = "Pepa"
+    print(s[4])
     print(s.popAll())
     print(s.count())
     print(s.printf())
